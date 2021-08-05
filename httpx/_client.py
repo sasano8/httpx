@@ -597,6 +597,8 @@ class Client(BaseClient):
     variables for configuration.
     """
 
+    DEFAULT_APP_TRANSPORT = WSGITransport
+
     def __init__(
         self,
         *,
@@ -689,7 +691,7 @@ class Client(BaseClient):
             return transport
 
         if app is not None:
-            return WSGITransport(app=app)
+            return self.DEFAULT_APP_TRANSPORT(app=app)
 
         return HTTPTransport(
             verify=verify,
@@ -1302,6 +1304,8 @@ class AsyncClient(BaseClient):
     variables for configuration.
     """
 
+    DEFAULT_APP_TRANSPORT = ASGITransport
+
     def __init__(
         self,
         *,
@@ -1394,7 +1398,7 @@ class AsyncClient(BaseClient):
             return transport
 
         if app is not None:
-            return ASGITransport(app=app)
+            return self.DEFAULT_APP_TRANSPORT(app=app)
 
         return AsyncHTTPTransport(
             verify=verify,
